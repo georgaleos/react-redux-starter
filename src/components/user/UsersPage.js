@@ -1,4 +1,6 @@
 import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+import * as userActions from '../../actions/userActions'
 
 class UsersPage extends React.Component {
     constructor(props, context) {
@@ -21,7 +23,7 @@ class UsersPage extends React.Component {
     }
 
     onClickSave(){
-        alert(`Saving ${this.state.user.name}`);
+        this.props.dispatch(userActions.createUser(this.state.user));
     }
 
     render() {
@@ -44,4 +46,11 @@ class UsersPage extends React.Component {
     }
 }
 
-export default UsersPage;
+function mapStateToProps(state, ownProps) {
+    return {
+        users: state.users
+    }
+}
+
+export default connect(mapStateToProps)(UsersPage);
+// export default connect(mapStateToProps, mapDispatchToProps)(UsersPage);

@@ -23,7 +23,7 @@ class UsersPage extends React.Component {
     }
 
     onClickSave(){
-        this.props.dispatch(userActions.createUser(this.state.user));
+        this.props.createUser(this.state.user);
     }
 
     userRow(user, index) {
@@ -51,8 +51,8 @@ class UsersPage extends React.Component {
 }
 
 UsersPage.propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    users: PropTypes.array.isRequired
+    users: PropTypes.array.isRequired,
+    createCourse: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
@@ -61,5 +61,10 @@ function mapStateToProps(state, ownProps) {
     };
 }
 
-export default connect(mapStateToProps)(UsersPage);
-// export default connect(mapStateToProps, mapDispatchToProps)(UsersPage);
+function mapDispatchToProps(dispatch) {
+    return {
+        createUser: user => dispatch(userActions.createUser(user))
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UsersPage);

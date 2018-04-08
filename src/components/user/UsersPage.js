@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import * as userActions from '../../actions/userActions'
+import * as userActions from '../../actions/userActions';
 
 class UsersPage extends React.Component {
     constructor(props, context) {
@@ -26,12 +26,16 @@ class UsersPage extends React.Component {
         this.props.dispatch(userActions.createUser(this.state.user));
     }
 
+    userRow(user, index) {
+        return <div key={index}>{user.name}</div>;
+    }
+
     render() {
         return (
             <div>
                 <h1>Users</h1>
+                {this.props.users.map(this.userRow)}
                 <h2>Add User</h2>
-
                 <input
                     type="text"
                     onChange={this.onNameChange}
@@ -46,10 +50,15 @@ class UsersPage extends React.Component {
     }
 }
 
+UsersPage.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    users: PropTypes.array.isRequired
+};
+
 function mapStateToProps(state, ownProps) {
     return {
         users: state.users
-    }
+    };
 }
 
 export default connect(mapStateToProps)(UsersPage);

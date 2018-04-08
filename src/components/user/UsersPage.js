@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as userActions from '../../actions/userActions';
+import {bindActionCreators} from "redux";
 
 class UsersPage extends React.Component {
     constructor(props, context) {
@@ -23,7 +24,7 @@ class UsersPage extends React.Component {
     }
 
     onClickSave(){
-        this.props.createUser(this.state.user);
+        this.props.actions.createUser(this.state.user);
     }
 
     userRow(user, index) {
@@ -52,7 +53,7 @@ class UsersPage extends React.Component {
 
 UsersPage.propTypes = {
     users: PropTypes.array.isRequired,
-    createCourse: PropTypes.func.isRequired
+    actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
@@ -63,7 +64,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        createUser: user => dispatch(userActions.createUser(user))
+        actions: bindActionCreators(userActions, dispatch)
     };
 }
 

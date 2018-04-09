@@ -12,6 +12,15 @@ class ManageUserPage extends React.Component {
             user: Object.assign({}, props.user),
             errors: {}
         };
+
+        this.updateUserState = this.updateUserState.bind(this);
+    }
+
+    updateUserState(event) {
+        const field = event.target.name;
+        let user = Object.assign({}, this.state.user);
+        user[field] = event.target.value;
+        return this.setState({user: user});
     }
 
     render() {
@@ -19,6 +28,7 @@ class ManageUserPage extends React.Component {
             <UserForm
                 user={this.state.user}
                 errors={this.state.errors}
+                onChange={this.updateUserState}
                 allUsers={this.props.users}/>
         );
     }

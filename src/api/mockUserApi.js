@@ -8,19 +8,22 @@ const users = [
         id: 'cory-house',
         name: 'Cory',
         firstName: 'Cory',
-        lastName: 'House'
+        lastName: 'House',
+        managerId: ''
     },
     {
         id: 'scott-allen',
         name: 'Scott',
         firstName: 'Scott',
-        lastName: 'Allen'
+        lastName: 'Allen',
+        managerId: ''
     },
     {
         id: 'george-ele',
         name: 'George',
         firstName: 'George',
-        lastName: 'Ele'
+        lastName: 'Ele',
+        managerId: ''
     }
 ];
 

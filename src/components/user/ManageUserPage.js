@@ -5,7 +5,7 @@ import * as userActions from '../../actions/userActions';
 import UserForm from './UserForm';
 import toastr from 'toastr';
 
-class ManageUserPage extends React.Component {
+export class ManageUserPage extends React.Component {
     constructor(props, context) {
         super(props, context);
 
@@ -32,8 +32,26 @@ class ManageUserPage extends React.Component {
         return this.setState({user: user});
     }
 
+    userFormIsValid() {
+        let formIsValid = true;
+        let errors = {};
+
+        if(this.state.user.firstName.length < 3) {
+            errors.firstName = 'First name must be at least 3 characters.';
+            formIsValid = false;
+        }
+
+        this.setState({errors: errors});
+        return formIsValid;
+    }
+
     saveUser(event) {
         event.preventDefault();
+
+        if(!this.userFormIsValid()){
+            return;
+        }
+
         this.setState({saving: true});
         this.props.actions.saveUser(this.state.user)
             .then(() => this.redirect())

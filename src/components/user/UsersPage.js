@@ -13,7 +13,7 @@ class UsersPage extends React.Component {
     }
 
     redirectToAddUserPage() {
-        browserHistory.push('/course');
+        browserHistory.push('/user');
     }
 
     render() {

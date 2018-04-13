@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as userActions from '../../actions/userActions';
 import UserForm from './UserForm';
+import toastr from 'toastr';
 
 class ManageUserPage extends React.Component {
     constructor(props, context) {
@@ -35,11 +36,16 @@ class ManageUserPage extends React.Component {
         event.preventDefault();
         this.setState({saving: true});
         this.props.actions.saveUser(this.state.user)
-            .then(() => this.redirect());
+            .then(() => this.redirect())
+            .catch(error => {
+                toastr.error(error);
+                this.setState({saving: false});
+            });
     }
 
     redirect(){
         this.setState({saving: false});
+        toastr.success('User saved');
         this.context.router.push('/users');
     }
 

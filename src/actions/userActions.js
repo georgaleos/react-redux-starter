@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import userApi from '../api/mockUserApi';
-import {beginAjaxCall} from "./ajaxStatusActions";
+import {ajaxCallError, beginAjaxCall} from "./ajaxStatusActions";
 
 export function loadUsersSuccess(users) {
     return {type: types.LOAD_USERS_SUCCESS, users};
@@ -33,6 +33,7 @@ export function saveUser(user) {
                 ? dispatch(updateUserSuccess(savedUser))
                 : dispatch(createUserSuccess(savedUser));
         }).catch(error => {
+            dispatch(ajaxCallError());
             throw(error);
         });
     };

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as userActions from '../../actions/userActions';
 import UserForm from './UserForm';
+import {usersFormattedForDropdown} from "../../selectors/selectors";
 import toastr from 'toastr';
 
 export class ManageUserPage extends React.Component {
@@ -111,16 +112,9 @@ function mapStateToProps(state, ownProps) {
         user = getUserById(state.users, userId);
     }
 
-    const usersFormattedForDropdown = state.users.map(user => {
-        return {
-            value: user.id,
-            text: user.firstName + ' ' + user.lastName
-        };
-    });
-
     return {
         user: user,
-        users: usersFormattedForDropdown
+        users: usersFormattedForDropdown(state.users)
     };
 }
 

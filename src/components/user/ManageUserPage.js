@@ -10,7 +10,8 @@ class ManageUserPage extends React.Component {
 
         this.state = {
             user: Object.assign({}, props.user),
-            errors: {}
+            errors: {},
+            saving: false
         };
 
         this.updateUserState = this.updateUserState.bind(this);
@@ -32,7 +33,13 @@ class ManageUserPage extends React.Component {
 
     saveUser(event) {
         event.preventDefault();
-        this.props.actions.saveUser(this.state.user);
+        this.setState({saving: true});
+        this.props.actions.saveUser(this.state.user)
+            .then(() => this.redirect());
+    }
+
+    redirect(){
+        this.setState({saving: false});
         this.context.router.push('/users');
     }
 
@@ -43,6 +50,7 @@ class ManageUserPage extends React.Component {
                 errors={this.state.errors}
                 onChange={this.updateUserState}
                 onSave={this.saveUser}
+                saving={this.state.saving}
                 allUsers={this.props.users}/>
         );
     }

@@ -11,6 +11,7 @@ const UserForm = ({user, allUsers, onSave, onChange, saving, errors}) => {
                 name="firstName"
                 label="First Name"
                 value={user.firstName}
+                autocomplete="given-name"
                 onChange={onChange}
                 error={errors.firstName}/>
 
@@ -18,6 +19,7 @@ const UserForm = ({user, allUsers, onSave, onChange, saving, errors}) => {
                 name="lastName"
                 label="Last Name"
                 value={user.lastName}
+                autocomplete="family-name"
                 onChange={onChange}
                 error={errors.lastName}/>
 
